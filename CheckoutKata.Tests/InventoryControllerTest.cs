@@ -23,11 +23,19 @@ namespace CheckoutKata.Tests
         }
 
         [TestMethod]
-        public void ItemPostedToAPIIsInCache()
+        public void BeefSticksPostedToAPIIsInCache()
         {
             controller.AddNewItem("beef sticks", 1.23m);
             Assert.IsTrue(controller._cache.ContainsKey("beef sticks"));
             Assert.AreEqual(1.23m, controller._cache["beef sticks"]);
+        }
+
+        [TestMethod]
+        public void SausagePostedToAPIIsInCache()
+        {
+            controller.AddNewItem("suasage", 1.23m);
+            Assert.IsTrue(controller._cache.ContainsKey("suasage"));
+            Assert.AreEqual(1.23m, controller._cache["suasage"]);
         }
     }
 }
