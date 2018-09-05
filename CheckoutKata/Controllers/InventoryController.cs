@@ -20,5 +20,10 @@ namespace CheckoutKata.Controllers
         {
             _cache.Add(name, price);
         }
+
+        public void AddNewItem(int id, decimal price)
+        {
+            _cache.Add(id.ToString(), price);
+        }
     }
 }
