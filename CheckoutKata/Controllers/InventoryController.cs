@@ -18,7 +18,7 @@ namespace CheckoutKata.Controllers
 
         public void AddNewItem(string name, decimal price)
         {
-            _cache.Add(name, 1.23m);
+            _cache.Add(name, price);
         }
     }
 }

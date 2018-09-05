@@ -37,5 +37,13 @@ namespace CheckoutKata.Tests
             Assert.IsTrue(controller._cache.ContainsKey("suasage"));
             Assert.AreEqual(1.23m, controller._cache["suasage"]);
         }
+
+        [TestMethod]
+        public void BrisketPostedToAPIWithTwoDollarValueIsInCache()
+        {
+            controller.AddNewItem("brisket", 2m);
+            Assert.IsTrue(controller._cache.ContainsKey("brisket"));
+            Assert.AreEqual(2m, controller._cache["brisket"]);
+        }
     }
 }
