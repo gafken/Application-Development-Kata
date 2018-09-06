@@ -44,7 +44,7 @@ namespace CheckoutKata.Controllers
 
         public decimal GetPrice(int id)
         {
-            return _cache[id.ToString()];
+            return GetPrice(id.ToString());
         }
         #endregion Read
 
