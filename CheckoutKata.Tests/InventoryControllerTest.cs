@@ -22,6 +22,7 @@ namespace CheckoutKata.Tests
             controller = null;
         }
 
+        #region Insert
         [TestMethod]
         public void BeefSticksPostedToAPIIsInCache()
         {
@@ -53,6 +54,24 @@ namespace CheckoutKata.Tests
             Assert.IsTrue(controller._cache.ContainsKey("1"));
             Assert.AreEqual(2m, controller._cache["1"]);
         }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void AddDuplicateItemThrowsArgumentException()
+        {
+            try
+            {
+                controller.AddNewItem("long johns", 2);
+                controller.AddNewItem("long johns", 1);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Item already added.  Recommend UpdatePrice() instead.", e.Message);
+                throw;
+            }
+
+            Assert.Fail(); //should not be hit because of throw
+        }
+        #endregion Insert
 
         [TestMethod]
         public void UpdatePriceOfExistingItemUpdatesValue()

@@ -18,7 +18,10 @@ namespace CheckoutKata.Controllers
 
         public void AddNewItem(string name, decimal price)
         {
-            _cache.Add(name, price);
+            if (!_cache.ContainsKey(name))
+                _cache.Add(name, price);
+            else
+                throw new ArgumentException("Item already added.  Recommend UpdatePrice() instead.");
         }
 
         public void AddNewItem(int id, decimal price)
