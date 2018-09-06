@@ -26,7 +26,7 @@ namespace CheckoutKata.Controllers
 
         public void AddNewItem(int id, decimal price)
         {
-            _cache.Add(id.ToString(), price);
+            AddNewItem(id.ToString(), price);
         }
 
         public void UpdatePrice(string name, decimal newPrice)

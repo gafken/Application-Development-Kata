@@ -71,6 +71,23 @@ namespace CheckoutKata.Tests
 
             Assert.Fail(); //should not be hit because of throw
         }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void AddDuplicateItemByIDThrowsArgumentException()
+        {
+            try
+            {
+                controller.AddNewItem("long johns", 2);
+                controller.AddNewItem("long johns", 1);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Item already added.  Recommend UpdatePrice() instead.", e.Message);
+                throw;
+            }
+
+            Assert.Fail(); //should not be hit because of throw
+        }
         #endregion Insert
 
         [TestMethod]
