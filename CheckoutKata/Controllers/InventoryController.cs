@@ -32,9 +32,14 @@ namespace CheckoutKata.Controllers
         #endregion Insert
 
         #region Read
-        internal decimal GetPrice(string name)
+        public decimal GetPrice(string name)
         {
             return _cache[name];
+        }
+
+        public decimal GetPrice(int id)
+        {
+            return _cache[id.ToString()];
         }
         #endregion Read
 

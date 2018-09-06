@@ -97,6 +97,13 @@ namespace CheckoutKata.Tests
             controller.AddNewItem("bread", 2.15m);
             Assert.AreEqual(2.15m, controller.GetPrice("bread"));
         }
+
+        [TestMethod]
+        public void GetItemByIDThatExistsInCacheReturnsPrice()
+        {
+            controller.AddNewItem(1, 2.15m);
+            Assert.AreEqual(2.15m, controller.GetPrice(1));
+        }
         #endregion Read
 
         #region Update
