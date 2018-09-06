@@ -34,7 +34,12 @@ namespace CheckoutKata.Controllers
         #region Read
         public decimal GetPrice(string name)
         {
-            return _cache[name];
+            if (_cache.ContainsKey(name))
+                return _cache[name];
+            else
+                throw new ArgumentException($"Item {name} does not exist in the cache and must be inserted."); //only other option here is to return -1
+                                                                                                               //I don't want a -1 being used on the user side erroneously
+                                                                                                               //so this seemed the most graceful way at first glance.
         }
 
         public decimal GetPrice(int id)

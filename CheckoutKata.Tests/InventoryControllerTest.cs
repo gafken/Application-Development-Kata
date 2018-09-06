@@ -104,6 +104,22 @@ namespace CheckoutKata.Tests
             controller.AddNewItem(1, 2.15m);
             Assert.AreEqual(2.15m, controller.GetPrice(1));
         }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void GetItemThatDoesntExistsInCacheThrowsDetailedException()
+        {
+            try
+            {
+                controller.GetPrice("bread");
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Item bread does not exist in the cache and must be inserted.", e.Message);
+                throw;
+            }
+
+            Assert.Fail();
+        }
         #endregion Read
 
         #region Update
