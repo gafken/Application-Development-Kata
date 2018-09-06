@@ -53,5 +53,13 @@ namespace CheckoutKata.Tests
             Assert.IsTrue(controller._cache.ContainsKey("1"));
             Assert.AreEqual(2m, controller._cache["1"]);
         }
+
+        [TestMethod]
+        public void UpdatePriceOfExistingItemUpdatesValue()
+        {
+            controller.AddNewItem("slim jim", 1);
+            controller.UpdatePrice("slim jim", 2);
+            Assert.AreEqual(2, controller._cache["slim jim"]);
+        }
     }
 }

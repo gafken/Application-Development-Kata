@@ -25,5 +25,10 @@ namespace CheckoutKata.Controllers
         {
             _cache.Add(id.ToString(), price);
         }
+
+        internal void UpdatePrice(string name, int newPrice)
+        {
+            _cache[name] = newPrice;
+        }
     }
 }
