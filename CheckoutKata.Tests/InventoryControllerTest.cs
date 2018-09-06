@@ -90,6 +90,15 @@ namespace CheckoutKata.Tests
         }
         #endregion Insert
 
+        #region Read
+        [TestMethod]
+        public void GetItemThatExistsInCacheReturnsPrice()
+        {
+            controller.AddNewItem("bread", 2.15m);
+            Assert.AreEqual(2.15m, controller.GetPrice("bread"));
+        }
+        #endregion Read
+
         #region Update
         [TestMethod]
         public void UpdatePriceOfExistingItemUpdatesValue()

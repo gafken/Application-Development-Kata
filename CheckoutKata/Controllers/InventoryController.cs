@@ -31,6 +31,13 @@ namespace CheckoutKata.Controllers
         }
         #endregion Insert
 
+        #region Read
+        internal decimal GetPrice(string name)
+        {
+            return _cache[name];
+        }
+        #endregion Read
+
         #region Update
         public void UpdatePrice(string name, decimal newPrice)
         {
