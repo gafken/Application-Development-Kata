@@ -61,5 +61,11 @@ namespace CheckoutKata.Tests
             controller.UpdatePrice("slim jim", 2);
             Assert.AreEqual(2, controller._cache["slim jim"]);
         }
+
+        [TestMethod, ExpectedException(typeof(Exception))]
+        public void UpdatePriceOfNonExistingItemThrowsDetailedError()
+        {
+            controller.UpdatePrice("no items exist", 3);
+        }
     }
 }

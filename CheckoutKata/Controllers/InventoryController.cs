@@ -28,7 +28,10 @@ namespace CheckoutKata.Controllers
 
         internal void UpdatePrice(string name, int newPrice)
         {
-            _cache[name] = newPrice;
+            if (_cache.ContainsKey(name))
+                _cache[name] = newPrice;
+            else
+                throw new Exception($"Item {name} does not exist in the inventory.");
         }
     }
 }
