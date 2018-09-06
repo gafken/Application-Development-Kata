@@ -90,6 +90,7 @@ namespace CheckoutKata.Tests
         }
         #endregion Insert
 
+        #region Update
         [TestMethod]
         public void UpdatePriceOfExistingItemUpdatesValue()
         {
@@ -117,5 +118,6 @@ namespace CheckoutKata.Tests
         {
             controller.UpdatePrice(1, 3);
         }
+        #endregion Update
     }
 }

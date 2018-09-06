@@ -16,6 +16,7 @@ namespace CheckoutKata.Controllers
 
         internal Dictionary<string, decimal> _cache { get; set; }
 
+        #region Insert
         public void AddNewItem(string name, decimal price)
         {
             if (!_cache.ContainsKey(name))
@@ -28,7 +29,9 @@ namespace CheckoutKata.Controllers
         {
             AddNewItem(id.ToString(), price);
         }
+        #endregion Insert
 
+        #region Update
         public void UpdatePrice(string name, decimal newPrice)
         {
             if (_cache.ContainsKey(name))
@@ -41,5 +44,6 @@ namespace CheckoutKata.Controllers
         {
             UpdatePrice(id.ToString(), price);
         }
+        #endregion Update
     }
 }
