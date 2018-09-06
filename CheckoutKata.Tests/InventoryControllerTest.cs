@@ -67,5 +67,13 @@ namespace CheckoutKata.Tests
         {
             controller.UpdatePrice("no items exist", 3);
         }
+
+        [TestMethod]
+        public void UpdatePriceOfExistingItemByIDUpdatesValue()
+        {
+            controller.AddNewItem(1, 1);
+            controller.UpdatePrice(1, 2);
+            Assert.AreEqual(2, controller._cache["1"]);
+        }
     }
 }
