@@ -17,6 +17,11 @@ namespace CheckoutKata.Controllers
         internal Dictionary<string, InventoryItem> _cache { get; set; }
 
         #region Insert
+        public void AddNewItem(InventoryItem item)
+        {
+            _cache.Add(item.Identifier, item);
+        }
+
         public void AddNewItem(string name, decimal price)
         {
             if (!_cache.ContainsKey(name))

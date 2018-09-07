@@ -91,6 +91,14 @@ namespace CheckoutKata.Tests
 
             Assert.Fail(); //should not be hit because of throw
         }
+
+        [TestMethod]
+        public void AddItemByClassValueIsInCache()
+        {
+            controller.AddNewItem(new InventoryItem("id", 1.23m));
+            Assert.IsTrue(controller._cache.ContainsKey("id"));
+            Assert.AreEqual(1.23m, controller.GetPrice("id"));
+        }
         #endregion Insert
 
         #region Read
