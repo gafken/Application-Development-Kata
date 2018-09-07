@@ -9,12 +9,7 @@ namespace CheckoutKata.Controllers
 {
     public class InventoryController : ApiController
     {
-        public InventoryController()
-        {
-            _cache = new Dictionary<string, InventoryItem>();
-        }
-
-        internal Dictionary<string, InventoryItem> _cache { get; set; }
+        internal Dictionary<string, InventoryItem> _cache => CacheManager.InventoryCache;
 
         #region Insert
         public void AddNewItem(InventoryItem item)

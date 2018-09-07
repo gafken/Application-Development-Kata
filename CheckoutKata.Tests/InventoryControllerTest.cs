@@ -17,6 +17,7 @@ namespace CheckoutKata.Tests
         public void Initialize()
         {
             controller = new InventoryController();
+            CacheManager.InventoryCache = new Dictionary<string, InventoryItem>();
         }
 
         [TestCleanup]
