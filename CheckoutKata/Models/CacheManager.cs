@@ -10,6 +10,6 @@ namespace CheckoutKata.Models
     {
         internal static Dictionary<string, InventoryItem> InventoryCache = new Dictionary<string, InventoryItem>();
 
-
+        internal static List<CartItem> CartCache = new List<CartItem>();
     }
 }

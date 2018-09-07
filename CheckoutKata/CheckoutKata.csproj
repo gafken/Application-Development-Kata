@@ -86,11 +86,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CacheManager.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\InventoryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
