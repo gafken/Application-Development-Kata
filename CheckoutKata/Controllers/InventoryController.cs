@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+
+using CheckoutKata.Models;
 
 namespace CheckoutKata.Controllers
 {
@@ -11,16 +11,19 @@ namespace CheckoutKata.Controllers
     {
         public InventoryController()
         {
-            _cache = new Dictionary<string, decimal>();
+            _cache = new Dictionary<string, InventoryItem>();
         }
 
-        internal Dictionary<string, decimal> _cache { get; set; }
+        internal Dictionary<string, InventoryItem> _cache { get; set; }
 
         #region Insert
         public void AddNewItem(string name, decimal price)
         {
             if (!_cache.ContainsKey(name))
-                _cache.Add(name, price);
+            {
+                var item = new InventoryItem(name, price);
+                _cache.Add(name, item);
+            }
             else
                 throw new ArgumentException("Item already added.  Recommend UpdatePrice() instead.");
         }
@@ -35,7 +38,7 @@ namespace CheckoutKata.Controllers
         public decimal GetPrice(string name)
         {
             if (_cache.ContainsKey(name))
-                return _cache[name];
+                return _cache[name].Price;
             else
                 throw new ArgumentException($"Item {name} does not exist in the cache and must be inserted."); //only other option here is to return -1
                                                                                                                //I don't want a -1 being used on the user side erroneously
@@ -46,13 +49,18 @@ namespace CheckoutKata.Controllers
         {
             return GetPrice(id.ToString());
         }
+
+        public IEnumerable<InventoryItem> SearchFor(string queryString)
+        {
+            return _cache.Where(x => x.Key.Contains(queryString)).Select(x => x.Value);
+        }
         #endregion Read
 
         #region Update
         public void UpdatePrice(string name, decimal newPrice)
         {
             if (_cache.ContainsKey(name))
-                _cache[name] = newPrice;
+                _cache[name].Price = newPrice;
             else
                 throw new Exception($"Item {name} does not exist in the inventory.");
         }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CheckoutKata.Controllers;
+using CheckoutKata.Models;
 
 namespace CheckoutKata.Tests
 {
@@ -28,7 +31,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddNewItem("beef sticks", 1.23m);
             Assert.IsTrue(controller._cache.ContainsKey("beef sticks"));
-            Assert.AreEqual(1.23m, controller._cache["beef sticks"]);
+            Assert.AreEqual(1.23m, controller.GetPrice("beef sticks"));
         }
 
         [TestMethod]
@@ -36,7 +39,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddNewItem("suasage", 1.23m);
             Assert.IsTrue(controller._cache.ContainsKey("suasage"));
-            Assert.AreEqual(1.23m, controller._cache["suasage"]);
+            Assert.AreEqual(1.23m, controller.GetPrice("suasage"));
         }
 
         [TestMethod]
@@ -44,7 +47,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddNewItem("brisket", 2m);
             Assert.IsTrue(controller._cache.ContainsKey("brisket"));
-            Assert.AreEqual(2m, controller._cache["brisket"]);
+            Assert.AreEqual(2m, controller.GetPrice("brisket"));
         }
 
         [TestMethod]
@@ -52,7 +55,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddNewItem(1, 2m);
             Assert.IsTrue(controller._cache.ContainsKey("1"));
-            Assert.AreEqual(2m, controller._cache["1"]);
+            Assert.AreEqual(2m, controller.GetPrice("1"));
         }
 
         [TestMethod, ExpectedException(typeof(ArgumentException))]
@@ -136,6 +139,24 @@ namespace CheckoutKata.Tests
 
             Assert.Fail();
         }
+
+        [TestMethod]
+        public void SearchItemReturnsListTheContainQueryString()
+        {
+            var expected = new List<InventoryItem>(new[] {
+                new InventoryItem("inresults1", 1.23m), new InventoryItem("inresults2", 1.58m)
+            });
+
+            foreach (var item in expected)
+            {
+                controller.AddNewItem(item.Identifier, item.Price);
+            }
+
+            controller.AddNewItem("notfound1", 3m);
+            controller.AddNewItem("notfound2", 4m);
+
+            controller.SearchFor("results");
+        }
         #endregion Read
 
         #region Update
@@ -144,7 +165,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddNewItem("slim jim", 1);
             controller.UpdatePrice("slim jim", 2);
-            Assert.AreEqual(2, controller._cache["slim jim"]);
+            Assert.AreEqual(2, controller.GetPrice("slim jim"));
         }
 
         [TestMethod, ExpectedException(typeof(Exception))]
@@ -158,7 +179,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddNewItem(1, 1);
             controller.UpdatePrice(1, 2);
-            Assert.AreEqual(2, controller._cache["1"]);
+            Assert.AreEqual(2, controller.GetPrice("1"));
         }
 
         [TestMethod, ExpectedException(typeof(Exception))]
