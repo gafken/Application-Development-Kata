@@ -99,6 +99,23 @@ namespace CheckoutKata.Tests
             Assert.IsTrue(controller._cache.ContainsKey("id"));
             Assert.AreEqual(1.23m, controller.GetPrice("id"));
         }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void AddDuplicateItemByClassThrowsArgumentException()
+        {
+            try
+            {
+                controller.AddNewItem(new InventoryItem("long johns", 2));
+                controller.AddNewItem(new InventoryItem("long johns", 1));
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Item already added.  Recommend UpdatePrice() instead.", e.Message);
+                throw;
+            }
+
+            Assert.Fail(); //should not be hit because of throw
+        }
         #endregion Insert
 
         #region Read

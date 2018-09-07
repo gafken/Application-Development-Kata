@@ -19,7 +19,10 @@ namespace CheckoutKata.Controllers
         #region Insert
         public void AddNewItem(InventoryItem item)
         {
-            _cache.Add(item.Identifier, item);
+            if (!_cache.ContainsKey(item.Identifier))
+                _cache.Add(item.Identifier, item);
+            else
+                throw new ArgumentException("Item already added.  Recommend UpdatePrice() instead.");
         }
 
         public void AddNewItem(string name, decimal price)
