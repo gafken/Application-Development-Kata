@@ -6,3 +6,6 @@
 *.ide
 *.ide-shm
 *.ide-wal
+*.suo
+*.dtbcache
+*.dll
