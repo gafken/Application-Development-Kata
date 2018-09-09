@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CheckoutKata.Controllers;
 using CheckoutKata.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,7 +13,7 @@ namespace CheckoutKata.Tests
         private DiscountController controller { get; set; }
 
         [ClassInitialize]
-        public void LoadCache()
+        public static void LoadCache(TestContext context)
         {
             CacheManager.InventoryCache.Add("UPC1", new InventoryItem("jerky", 1.25m));
             CacheManager.InventoryCache.Add("UPC2", new InventoryItem("turkey", 1.5m));
@@ -28,12 +30,21 @@ namespace CheckoutKata.Tests
         public void Initialize()
         {
             controller = new DiscountController();
+            CacheManager.MarkDownCache = new List<Markdown>();
         }
 
         [TestCleanup]
         public void Cleanup()
         {
             controller = null;
+        }
+
+        [TestMethod]
+        public void AddNewDiscountValueIsInCache()
+        {
+            controller.AddDiscount(new Markdown("jerky", 1.23m));
+            Assert.IsNotNull(controller._cache.FirstOrDefault(x => x.Identifier == "jerky"));
+            Assert.AreEqual(1.23m, controller._cache.FirstOrDefault(x => x.Identifier == "jerky").MarkdownPrice);
         }
     }
 }
