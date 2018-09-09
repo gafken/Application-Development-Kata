@@ -54,5 +54,23 @@ namespace CheckoutKata.Tests
             Assert.IsNotNull(controller._cache.FirstOrDefault(x => x.Identifier == "turkey"));
             Assert.AreEqual(2.75m, controller._cache.FirstOrDefault(x => x.Identifier == "turkey").MarkdownPrice);
         }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void AddMoreThanOneMarkdownForAnItemReturnsDetailedError()
+        {
+            controller.AddDiscount(new Markdown("turkey", 2.75m));
+
+            try
+            {
+                controller.AddDiscount(new Markdown("turkey", 2.50m));
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Markdown already exists for turkey.  Recommend UpdateMarkdown()", e.Message);
+                throw;
+            }
+
+            Assert.Fail();
+        }
     }
 }

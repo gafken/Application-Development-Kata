@@ -13,8 +13,11 @@ namespace CheckoutKata.Controllers
         internal List<Markdown> _cache => CacheManager.MarkDownCache;
 
         public void AddDiscount(Markdown discount) //This would be a nice place to use an Abstarct Base Class
-        {
-            _cache.Add(discount);
+        {            
+            if (!_cache.Any(x => x.Identifier == discount.Identifier))
+                _cache.Add(discount);
+            else
+                throw new ArgumentException($"Markdown already exists for {discount.Identifier}.  Recommend UpdateMarkdown()");
         }
     }
 }
