@@ -96,5 +96,29 @@ namespace CheckoutKata.Tests
             controller.AddDiscount(new Markdown("turkey", 2.50m));
             Assert.AreEqual(2.50m, controller.GetPrice("turkey"));
         }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void GetMarkdownPriceOfMarkDownNotInCacheReturnsDetailedException()
+        {
+            try
+            {
+                controller.GetPrice("turkey");
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("turkey markdown not available and must be added before using update.", e.Message);
+                throw;
+            }
+
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void UpdateMarkdownUpdatesMarkdownValueInCache()
+        {
+            controller.AddDiscount(new Markdown("turkey", 2.50m));
+            controller.UpdateDiscount("turkey", 3.50m);
+            Assert.AreEqual(3.50m, controller.GetPrice("turkey"));
+        }
     }
 }
