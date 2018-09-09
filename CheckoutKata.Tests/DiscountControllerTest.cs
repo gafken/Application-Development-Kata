@@ -106,7 +106,7 @@ namespace CheckoutKata.Tests
             }
             catch (ArgumentException e)
             {
-                Assert.AreEqual("turkey markdown not available and must be added before using update.", e.Message);
+                Assert.AreEqual("turkey markdown was not available in the inventory.", e.Message);
                 throw;
             }
 
@@ -127,6 +127,22 @@ namespace CheckoutKata.Tests
             controller.AddDiscount(new Markdown("jerky", 2.50m));
             controller.UpdateDiscount("jerky", 4.50m);
             Assert.AreEqual(4.50m, controller.GetPrice("jerky"));
+        }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void UpdateMarkdownPriceOfMarkDownNotInCacheReturnsDetailedException()
+        {
+            try
+            {
+                controller.UpdateDiscount("turkey", 1.25m);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("turkey markdown not available and must be added before using update.", e.Message);
+                throw;
+            }
+
+            Assert.Fail();
         }
     }
 }

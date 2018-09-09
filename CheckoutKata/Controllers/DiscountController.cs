@@ -31,12 +31,17 @@ namespace CheckoutKata.Controllers
             if (discount != null)
                 return discount.MarkdownPrice;
             else
-                throw new ArgumentException($"{discountName} markdown not available and must be added before using update.");
+                throw new ArgumentException($"{discountName} markdown was not available in the inventory.");
         }
 
         public void UpdateDiscount(string discountName, decimal newPrice)
         {
-            _cache.FirstOrDefault(x => x.Identifier == discountName).MarkdownPrice = newPrice;
+            var discount = _cache.FirstOrDefault(x => x.Identifier == discountName);
+
+            if (discount != null)
+                discount.MarkdownPrice = newPrice;
+            else
+                throw new ArgumentException($"{discountName} markdown not available and must be added before using update.");
         }
     }
 }
