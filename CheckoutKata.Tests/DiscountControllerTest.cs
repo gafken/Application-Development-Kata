@@ -46,5 +46,13 @@ namespace CheckoutKata.Tests
             Assert.IsNotNull(controller._cache.FirstOrDefault(x => x.Identifier == "jerky"));
             Assert.AreEqual(1.23m, controller._cache.FirstOrDefault(x => x.Identifier == "jerky").MarkdownPrice);
         }
+
+        [TestMethod]
+        public void AddDifferentDiscountValueIsInCache()
+        {
+            controller.AddDiscount(new Markdown("turkey", 2.75m));
+            Assert.IsNotNull(controller._cache.FirstOrDefault(x => x.Identifier == "turkey"));
+            Assert.AreEqual(2.75m, controller._cache.FirstOrDefault(x => x.Identifier == "turkey").MarkdownPrice);
+        }
     }
 }

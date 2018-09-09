@@ -14,7 +14,7 @@ namespace CheckoutKata.Controllers
 
         public void AddDiscount(Markdown discount) //This would be a nice place to use an Abstarct Base Class
         {
-            _cache.Add(new Markdown("jerky", 1.23m));
+            _cache.Add(discount);
         }
     }
 }
