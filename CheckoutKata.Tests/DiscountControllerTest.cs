@@ -44,7 +44,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddDiscount(new Markdown("jerky", 1.23m));
             Assert.IsNotNull(controller._cache.FirstOrDefault(x => x.Identifier == "jerky"));
-            Assert.AreEqual(1.23m, controller._cache.FirstOrDefault(x => x.Identifier == "jerky").MarkdownPrice);
+            Assert.AreEqual(1.23m, controller.GetPrice("jerky"));
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddDiscount(new Markdown("turkey", 2.75m));
             Assert.IsNotNull(controller._cache.FirstOrDefault(x => x.Identifier == "turkey"));
-            Assert.AreEqual(2.75m, controller._cache.FirstOrDefault(x => x.Identifier == "turkey").MarkdownPrice);
+            Assert.AreEqual(2.75m, controller.GetPrice("turkey"));
         }
 
         [TestMethod, ExpectedException(typeof(ArgumentException))]
@@ -88,6 +88,13 @@ namespace CheckoutKata.Tests
             }
 
             Assert.Fail();
+        }
+
+        [TestMethod]
+        public void GetMarkdownPriceOfMarkDownInCache()
+        {
+            controller.AddDiscount(new Markdown("turkey", 2.50m));
+            Assert.AreEqual(2.50m, controller.GetPrice("turkey"));
         }
     }
 }

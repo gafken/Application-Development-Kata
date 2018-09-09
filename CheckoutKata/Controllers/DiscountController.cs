@@ -23,5 +23,10 @@ namespace CheckoutKata.Controllers
             else
                 throw new ArgumentException($"Markdown already exists for {discount.Identifier}.  Recommend UpdateMarkdown()");
         }
+
+        public decimal GetPrice(string discountName)
+        {
+            return _cache.FirstOrDefault(x => x.Identifier == discountName).MarkdownPrice;
+        }
     }
 }
