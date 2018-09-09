@@ -36,7 +36,7 @@ namespace CheckoutKata.Controllers
 
         public void UpdateDiscount(string discountName, decimal newPrice)
         {
-            _cache.FirstOrDefault(x => x.Identifier == "turkey").MarkdownPrice = 3.50m;
+            _cache.FirstOrDefault(x => x.Identifier == discountName).MarkdownPrice = newPrice;
         }
     }
 }

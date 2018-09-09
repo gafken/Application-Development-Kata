@@ -120,5 +120,13 @@ namespace CheckoutKata.Tests
             controller.UpdateDiscount("turkey", 3.50m);
             Assert.AreEqual(3.50m, controller.GetPrice("turkey"));
         }
+
+        [TestMethod]
+        public void UpdateDifferentMarkdownUpdatesMarkdownValueInCache()
+        {
+            controller.AddDiscount(new Markdown("jerky", 2.50m));
+            controller.UpdateDiscount("jerky", 4.50m);
+            Assert.AreEqual(4.50m, controller.GetPrice("jerky"));
+        }
     }
 }
