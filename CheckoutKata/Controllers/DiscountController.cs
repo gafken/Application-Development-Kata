@@ -46,8 +46,15 @@ namespace CheckoutKata.Controllers
 
         public bool DeleteDiscount(string discountName)
         {
-            _cache.Remove(_cache.First(x => x.Identifier == "jerky"));
-            return true;
+            var discount = _cache.FirstOrDefault(x => x.Identifier == "jerky");
+
+            if (discount != null)
+            {
+                _cache.Remove(discount);
+                return true;
+            }
+
+            return false;
         }
     }
 }
