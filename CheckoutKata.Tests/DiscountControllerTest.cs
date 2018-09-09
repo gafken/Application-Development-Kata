@@ -144,5 +144,13 @@ namespace CheckoutKata.Tests
 
             Assert.Fail();
         }
+
+        [TestMethod]
+        public void DeleteMarkdownThatExistsInCacheReturnsTrue()
+        {
+            controller.AddDiscount(new Markdown("jerky", 1.23m));
+            Assert.IsTrue(controller.DeleteDiscount("jerky"));
+            Assert.IsNull(controller._cache.FirstOrDefault(x => x.Identifier == "jerky"));
+        }
     }
 }

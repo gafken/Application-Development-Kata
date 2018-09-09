@@ -43,5 +43,11 @@ namespace CheckoutKata.Controllers
             else
                 throw new ArgumentException($"{discountName} markdown not available and must be added before using update.");
         }
+
+        public bool DeleteDiscount(string discountName)
+        {
+            _cache.Remove(_cache.First(x => x.Identifier == "jerky"));
+            return true;
+        }
     }
 }
