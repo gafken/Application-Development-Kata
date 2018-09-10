@@ -33,7 +33,7 @@ namespace CheckoutKata.Controllers
             if (currentItem == null)
                 throw new ArgumentException($"{itemName} not in Cart so quantity cannot be updated.");
 
-            _cache.Single(x => x.Identifier == "jerky").NumberOfItems = 5;
+            currentItem.NumberOfItems = newQuantity;
         }
     }
 }

@@ -112,5 +112,14 @@ namespace CheckoutKata.Tests
 
             Assert.Fail();
         }
+
+        [TestMethod]
+        public void UpdateQuantityForDifferentItemUpdatesValueInCache()
+        {
+            controller.AddItem("turkey");
+            controller.UpdateQuantity("turkey", 7);
+            Assert.IsTrue(controller._cache.Any(x => x.Identifier == "turkey"));
+            Assert.AreEqual(7, controller._cache.First(x => x.Identifier == "turkey").NumberOfItems);
+        }
     }
 }
