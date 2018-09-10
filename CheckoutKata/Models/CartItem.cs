@@ -10,6 +10,7 @@ namespace CheckoutKata.Models
         public CartItem(string identifier)
         {
             Identifier = identifier;
+            NumberOfItems = 1;
         }
 
         public string Identifier { get; set; }

@@ -14,7 +14,12 @@ namespace CheckoutKata.Controllers
 
         internal void AddItem(string itemName)
         {
-            _cache.Add(new CartItem(itemName));
+            var currentItem = _cache.SingleOrDefault(x => x.Identifier == itemName);
+
+            if (currentItem == null)
+                _cache.Add(new CartItem(itemName));
+            else
+                currentItem.NumberOfItems++;
         }
     }
 }

@@ -32,6 +32,7 @@ namespace CheckoutKata.Tests
         public void Initialize()
         {
             controller = new CartController();
+            CacheManager.CartCache = new List<CartItem>();
         }
 
         [TestCleanup]
@@ -52,6 +53,23 @@ namespace CheckoutKata.Tests
         {
             controller.AddItem("turkey");
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "turkey"));
+        }
+
+        [TestMethod]
+        public void AddNewItemToCartAddsValueToCacheWithNumberOfItemAsOne()
+        {
+            controller.AddItem("jerky");
+            Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
+            Assert.AreEqual(1, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
+        }
+
+        [TestMethod]
+        public void AddSameItemToCartTwiceAddsValueToCacheWithNumberOfItemAsTwo()
+        {
+            controller.AddItem("jerky");
+            controller.AddItem("jerky");
+            Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
+            Assert.AreEqual(2, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
         }
     }
 }
