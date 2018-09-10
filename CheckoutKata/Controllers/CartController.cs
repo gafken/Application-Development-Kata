@@ -55,7 +55,7 @@ namespace CheckoutKata.Controllers
 
             foreach(var item in _cache)
             {
-                runningTotal += inventoryCache[item.Identifier].Price;
+                runningTotal += inventoryCache[item.Identifier].Price * item.Quantity;
             }
 
             return runningTotal;

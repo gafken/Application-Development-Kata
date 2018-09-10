@@ -190,5 +190,17 @@ namespace CheckoutKata.Tests
             controller.AddItem("turkey");
             Assert.AreEqual(2.75m, controller.CalcuateTotal());
         }
+
+        [TestMethod]
+        public void CalculateTotalWithTwoTurkeyAndThreeJerkyReturnSixAndThreeQuarters()
+        {
+            controller.AddItem("jerky");
+            controller.UpdateQuantity("jerky", 3);
+
+            controller.AddItem("turkey");
+            controller.UpdateQuantity("turkey", 2);
+
+            Assert.AreEqual(6.75m, controller.CalcuateTotal());
+        }
     }
 }
