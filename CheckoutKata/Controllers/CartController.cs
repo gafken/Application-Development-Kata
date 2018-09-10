@@ -12,6 +12,7 @@ namespace CheckoutKata.Controllers
     {
         internal List<CartItem> _cache => CacheManager.CartCache;
         private Dictionary<string, InventoryItem> inventoryCache => CacheManager.InventoryCache;
+        private List<Markdown> markdownCache => CacheManager.MarkDownCache;
 
         internal void AddItem(string itemName)
         {
@@ -55,7 +56,12 @@ namespace CheckoutKata.Controllers
 
             foreach(var item in _cache)
             {
-                runningTotal += inventoryCache[item.Identifier].Price * item.Quantity;
+                var itemMarkdown = markdownCache.SingleOrDefault(x => x.Identifier == item.Identifier);
+
+                if (itemMarkdown == null)
+                    runningTotal += inventoryCache[item.Identifier].Price * item.Quantity;
+                else
+                    runningTotal += itemMarkdown.MarkdownPrice * item.Quantity;
             }
 
             return runningTotal;

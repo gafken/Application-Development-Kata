@@ -202,5 +202,18 @@ namespace CheckoutKata.Tests
 
             Assert.AreEqual(6.75m, controller.CalcuateTotal());
         }
+
+        [TestMethod]
+        public void CalculateTotalWithTwoTurkeyAndThreeJerkyWithAMarkdownOnJerkyReturnSix()
+        {
+            controller.AddItem("jerky");
+            controller.UpdateQuantity("jerky", 3);
+            CacheManager.MarkDownCache.Add(new Markdown("jerky", 1));
+
+            controller.AddItem("turkey");
+            controller.UpdateQuantity("turkey", 2);
+
+            Assert.AreEqual(6, controller.CalcuateTotal());
+        }
     }
 }
