@@ -51,7 +51,14 @@ namespace CheckoutKata.Controllers
             if (!_cache.Any())
                 return 0;
 
-            return inventoryCache[_cache.First().Identifier].Price;
+            decimal runningTotal = 0;
+
+            foreach(var item in _cache)
+            {
+                runningTotal += inventoryCache[item.Identifier].Price;
+            }
+
+            return runningTotal;
         }
     }
 }
