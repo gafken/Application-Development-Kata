@@ -162,5 +162,11 @@ namespace CheckoutKata.Tests
 
             Assert.Fail();
         }
+
+        [TestMethod]
+        public void CalculateTotalWithNoCartItemsReturnsZero()
+        {
+            Assert.AreEqual(0, controller.CalcuateTotal());
+        }
     }
 }

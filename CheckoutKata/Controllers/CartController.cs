@@ -45,5 +45,10 @@ namespace CheckoutKata.Controllers
             else
                 throw new ArgumentException($"{itemName} not in Cart so it cannot be removed.");
         }
+
+        internal decimal CalcuateTotal()
+        {
+            return 0;
+        }
     }
 }
