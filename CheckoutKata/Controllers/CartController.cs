@@ -14,7 +14,7 @@ namespace CheckoutKata.Controllers
 
         internal void AddItem(string itemName)
         {
-            _cache.Add(new CartItem("jerky"));
+            _cache.Add(new CartItem(itemName));
         }
     }
 }

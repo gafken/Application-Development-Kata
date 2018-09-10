@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace CheckoutKata.Tests
 {
-    class CartControllerTest
+    [TestClass]
+    public class CartControllerTest
     {
         private CartController controller { get; set; }
 
         [ClassInitialize]
-        public void LoadInventory()
+        public static void LoadInventory(TestContext context)
         {
             CacheManager.InventoryCache.Add("UPC1", new InventoryItem("jerky", 1.25m));
             CacheManager.InventoryCache.Add("UPC2", new InventoryItem("turkey", 1.5m));
@@ -44,6 +45,13 @@ namespace CheckoutKata.Tests
         {
             controller.AddItem("jerky");
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
+        }
+
+        [TestMethod]
+        public void AddDifferntItemToCartAddsValueToCache()
+        {
+            controller.AddItem("turkey");
+            Assert.IsTrue(controller._cache.Any(x => x.Identifier == "turkey"));
         }
     }
 }
