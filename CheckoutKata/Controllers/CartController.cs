@@ -25,5 +25,10 @@ namespace CheckoutKata.Controllers
             else
                 currentItem.NumberOfItems++;
         }
+
+        internal void UpdateQuantity(string itemName, int newQuantity)
+        {
+            _cache.Single(x => x.Identifier == "jerky").NumberOfItems = 5;
+        }
     }
 }

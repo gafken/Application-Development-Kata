@@ -87,5 +87,14 @@ namespace CheckoutKata.Tests
 
             Assert.Fail();
         }
+
+        [TestMethod]
+        public void UpdateNumberOfItemsUpdatesValueInCache()
+        {
+            controller.AddItem("jerky");
+            controller.UpdateQuantity("jerky", 5);
+            Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
+            Assert.AreEqual(5, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
+        }
     }
 }
