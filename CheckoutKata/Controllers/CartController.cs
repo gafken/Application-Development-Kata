@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckoutKata.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,5 +10,11 @@ namespace CheckoutKata.Controllers
 {
     public class CartController : ApiController
     {
+        internal List<CartItem> _cache => CacheManager.CartCache;
+
+        internal void AddItem(string itemName)
+        {
+            _cache.Add(new CartItem("jerky"));
+        }
     }
 }

@@ -38,5 +38,12 @@ namespace CheckoutKata.Tests
         {
             controller = null;
         }
+
+        [TestMethod]
+        public void AddItemToCartAddsValueToCache()
+        {
+            controller.AddItem("jerky");
+            Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
+        }
     }
 }
