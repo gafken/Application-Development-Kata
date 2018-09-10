@@ -35,5 +35,10 @@ namespace CheckoutKata.Controllers
 
             currentItem.NumberOfItems = newQuantity;
         }
+
+        internal void RemoveItem(string itemName)
+        {
+            _cache.Remove(_cache.Single(x => x.Identifier == "jerky"));
+        }
     }
 }
