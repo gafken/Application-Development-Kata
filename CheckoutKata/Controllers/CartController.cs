@@ -38,7 +38,12 @@ namespace CheckoutKata.Controllers
 
         internal void RemoveItem(string itemName)
         {
-            _cache.Remove(_cache.Single(x => x.Identifier == itemName));
+            var currentItem = _cache.SingleOrDefault(x => x.Identifier == itemName);
+
+            if (currentItem != null)
+                _cache.Remove(currentItem);
+            else
+                throw new ArgumentException($"{itemName} not in Cart so it cannot be removed.");
         }
     }
 }

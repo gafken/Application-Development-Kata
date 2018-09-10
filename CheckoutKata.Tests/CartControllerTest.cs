@@ -123,7 +123,7 @@ namespace CheckoutKata.Tests
         }
 
         [TestMethod]
-        public void DeleteCartItemRemoveValueFromCache()
+        public void RemoveCartItemRemovesValueFromCache()
         {
             controller.AddItem("jerky");
             controller.RemoveItem("jerky");
@@ -131,11 +131,27 @@ namespace CheckoutKata.Tests
         }
 
         [TestMethod]
-        public void DeleteDifferentCartItemRemoveValueFromCache()
+        public void RemoveDifferentCartItemRemovesValueFromCache()
         {
             controller.AddItem("turkey");
             controller.RemoveItem("turkey");
             Assert.IsFalse(controller._cache.Any(x => x.Identifier == "turkey"));
+        }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void RemoveItemNotInCartReturnsDetailedException()
+        {
+            try
+            {
+                controller.RemoveItem("jerky");
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("jerky not in Cart so it cannot be removed.", e.Message);
+                throw;
+            }
+
+            Assert.Fail();
         }
     }
 }
