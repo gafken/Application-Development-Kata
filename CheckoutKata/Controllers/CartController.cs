@@ -38,7 +38,7 @@ namespace CheckoutKata.Controllers
 
         internal void RemoveItem(string itemName)
         {
-            _cache.Remove(_cache.Single(x => x.Identifier == "jerky"));
+            _cache.Remove(_cache.Single(x => x.Identifier == itemName));
         }
     }
 }

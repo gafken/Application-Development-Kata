@@ -129,5 +129,13 @@ namespace CheckoutKata.Tests
             controller.RemoveItem("jerky");
             Assert.IsFalse(controller._cache.Any(x => x.Identifier == "jerky"));
         }
+
+        [TestMethod]
+        public void DeleteDifferentCartItemRemoveValueFromCache()
+        {
+            controller.AddItem("turkey");
+            controller.RemoveItem("turkey");
+            Assert.IsFalse(controller._cache.Any(x => x.Identifier == "turkey"));
+        }
     }
 }
