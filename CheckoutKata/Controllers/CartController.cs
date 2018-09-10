@@ -11,9 +11,13 @@ namespace CheckoutKata.Controllers
     public class CartController : ApiController
     {
         internal List<CartItem> _cache => CacheManager.CartCache;
+        private Dictionary<string, InventoryItem> inventoryCache => CacheManager.InventoryCache;
 
         internal void AddItem(string itemName)
         {
+            if (!inventoryCache.ContainsKey(itemName))
+                throw new ArgumentException($"{itemName} no in Inventory so cannot be added to Cart.");
+
             var currentItem = _cache.SingleOrDefault(x => x.Identifier == itemName);
 
             if (currentItem == null)

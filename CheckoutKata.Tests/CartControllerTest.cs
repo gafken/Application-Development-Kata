@@ -17,15 +17,15 @@ namespace CheckoutKata.Tests
         [ClassInitialize]
         public static void LoadInventory(TestContext context)
         {
-            CacheManager.InventoryCache.Add("UPC1", new InventoryItem("jerky", 1.25m));
-            CacheManager.InventoryCache.Add("UPC2", new InventoryItem("turkey", 1.5m));
-            CacheManager.InventoryCache.Add("UPC3", new InventoryItem("ham", 1.75m));
-            CacheManager.InventoryCache.Add("UPC4", new InventoryItem("pepper", 2m));
-            CacheManager.InventoryCache.Add("UPC5", new InventoryItem("pepperoni", 2.25m));
-            CacheManager.InventoryCache.Add("UPC6", new InventoryItem("ground beef", 2.5m));
-            CacheManager.InventoryCache.Add("UPC7", new InventoryItem("bacon", 2.75m));
-            CacheManager.InventoryCache.Add("UPC8", new InventoryItem("salami", 3m));
-            CacheManager.InventoryCache.Add("UPC9", new InventoryItem("veal", 3.25m));
+            CacheManager.InventoryCache.Add("jerky", new InventoryItem("jerky", 1.25m));
+            CacheManager.InventoryCache.Add("turkey", new InventoryItem("turkey", 1.5m));
+            CacheManager.InventoryCache.Add("ham", new InventoryItem("ham", 1.75m));
+            CacheManager.InventoryCache.Add("pepper", new InventoryItem("pepper", 2m));
+            CacheManager.InventoryCache.Add("pepperoni", new InventoryItem("pepperoni", 2.25m));
+            CacheManager.InventoryCache.Add("ground beef", new InventoryItem("ground beef", 2.5m));
+            CacheManager.InventoryCache.Add("bacon", new InventoryItem("bacon", 2.75m));
+            CacheManager.InventoryCache.Add("salami", new InventoryItem("salami", 3m));
+            CacheManager.InventoryCache.Add("veal", new InventoryItem("veal", 3.25m));
         }
 
         [TestInitialize]
@@ -70,6 +70,22 @@ namespace CheckoutKata.Tests
             controller.AddItem("jerky");
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
             Assert.AreEqual(2, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
+        }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void AddItemNotInInventoryReturnsDetailedException()
+        {
+            try
+            {
+                controller.AddItem("NotInInventory");
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("NotInInventory no in Inventory so cannot be added to Cart.", e.Message);
+                throw;
+            }
+
+            Assert.Fail();
         }
     }
 }
