@@ -168,5 +168,19 @@ namespace CheckoutKata.Tests
         {
             Assert.AreEqual(0, controller.CalcuateTotal());
         }
+
+        [TestMethod]
+        public void CalculateTotalWithSingleJerkyReturnOneAndAQuarter()
+        {
+            controller.AddItem("jerky");
+            Assert.AreEqual(1.25m, controller.CalcuateTotal());
+        }
+
+        [TestMethod]
+        public void CalculateTotalWithSingleTurkeyReturnOneAndAHalf()
+        {
+            controller.AddItem("turkey");
+            Assert.AreEqual(1.50m, controller.CalcuateTotal());
+        }
     }
 }

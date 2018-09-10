@@ -48,7 +48,10 @@ namespace CheckoutKata.Controllers
 
         internal decimal CalcuateTotal()
         {
-            return 0;
+            if (!_cache.Any())
+                return 0;
+
+            return inventoryCache[_cache.First().Identifier].Price;
         }
     }
 }
