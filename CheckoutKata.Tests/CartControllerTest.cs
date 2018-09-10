@@ -60,7 +60,7 @@ namespace CheckoutKata.Tests
         {
             controller.AddItem("jerky");
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
-            Assert.AreEqual(1, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
+            Assert.AreEqual(1, controller._cache.First(x => x.Identifier == "jerky").Quantity);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace CheckoutKata.Tests
             controller.AddItem("jerky");
             controller.AddItem("jerky");
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
-            Assert.AreEqual(2, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
+            Assert.AreEqual(2, controller._cache.First(x => x.Identifier == "jerky").Quantity);
         }
 
         [TestMethod, ExpectedException(typeof(ArgumentException))]
@@ -94,7 +94,7 @@ namespace CheckoutKata.Tests
             controller.AddItem("jerky");
             controller.UpdateQuantity("jerky", 5);
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
-            Assert.AreEqual(5, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
+            Assert.AreEqual(5, controller._cache.First(x => x.Identifier == "jerky").Quantity);
         }
 
         [TestMethod, ExpectedException(typeof(ArgumentException))]
@@ -119,7 +119,16 @@ namespace CheckoutKata.Tests
             controller.AddItem("turkey");
             controller.UpdateQuantity("turkey", 7);
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "turkey"));
-            Assert.AreEqual(7, controller._cache.First(x => x.Identifier == "turkey").NumberOfItems);
+            Assert.AreEqual(7, controller._cache.First(x => x.Identifier == "turkey").Quantity);
+        }
+
+        [TestMethod]
+        public void UpdateQuantityToDecimalValueItemUpdatesValueInCache()
+        {
+            controller.AddItem("turkey");
+            controller.UpdateQuantity("turkey", 7.25m);
+            Assert.IsTrue(controller._cache.Any(x => x.Identifier == "turkey"));
+            Assert.AreEqual(7.25m, controller._cache.First(x => x.Identifier == "turkey").Quantity);
         }
 
         [TestMethod]

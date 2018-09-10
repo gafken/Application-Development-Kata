@@ -23,17 +23,17 @@ namespace CheckoutKata.Controllers
             if (currentItem == null)
                 _cache.Add(new CartItem(itemName));
             else
-                currentItem.NumberOfItems++;
+                currentItem.Quantity++;
         }
 
-        internal void UpdateQuantity(string itemName, int newQuantity)
+        internal void UpdateQuantity(string itemName, decimal newQuantity)
         {
             var currentItem = _cache.SingleOrDefault(x => x.Identifier == itemName);
 
             if (currentItem == null)
                 throw new ArgumentException($"{itemName} not in Cart so quantity cannot be updated.");
 
-            currentItem.NumberOfItems = newQuantity;
+            currentItem.Quantity = newQuantity;
         }
 
         internal void RemoveItem(string itemName)

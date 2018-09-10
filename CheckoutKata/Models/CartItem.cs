@@ -10,11 +10,11 @@ namespace CheckoutKata.Models
         public CartItem(string identifier)
         {
             Identifier = identifier;
-            NumberOfItems = 1;
+            Quantity = 1;
         }
 
         public string Identifier { get; set; }
 
-        public int NumberOfItems { get; set; }
+        public decimal Quantity { get; set; }
     }
 }
