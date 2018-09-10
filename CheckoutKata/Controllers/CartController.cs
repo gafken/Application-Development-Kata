@@ -16,7 +16,7 @@ namespace CheckoutKata.Controllers
         internal void AddItem(string itemName)
         {
             if (!inventoryCache.ContainsKey(itemName))
-                throw new ArgumentException($"{itemName} no in Inventory so cannot be added to Cart.");
+                throw new ArgumentException($"{itemName} not in Inventory so cannot be added to Cart.");
 
             var currentItem = _cache.SingleOrDefault(x => x.Identifier == itemName);
 
@@ -28,6 +28,11 @@ namespace CheckoutKata.Controllers
 
         internal void UpdateQuantity(string itemName, int newQuantity)
         {
+            var currentItem = _cache.SingleOrDefault(x => x.Identifier == itemName);
+
+            if (currentItem == null)
+                throw new ArgumentException($"{itemName} not in Cart so quantity cannot be updated.");
+
             _cache.Single(x => x.Identifier == "jerky").NumberOfItems = 5;
         }
     }

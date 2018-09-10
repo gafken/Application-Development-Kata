@@ -81,7 +81,7 @@ namespace CheckoutKata.Tests
             }
             catch (ArgumentException e)
             {
-                Assert.AreEqual("NotInInventory no in Inventory so cannot be added to Cart.", e.Message);
+                Assert.AreEqual("NotInInventory not in Inventory so cannot be added to Cart.", e.Message);
                 throw;
             }
 
@@ -89,12 +89,28 @@ namespace CheckoutKata.Tests
         }
 
         [TestMethod]
-        public void UpdateNumberOfItemsUpdatesValueInCache()
+        public void UpdateQuantityUpdatesValueInCache()
         {
             controller.AddItem("jerky");
             controller.UpdateQuantity("jerky", 5);
             Assert.IsTrue(controller._cache.Any(x => x.Identifier == "jerky"));
             Assert.AreEqual(5, controller._cache.First(x => x.Identifier == "jerky").NumberOfItems);
+        }
+
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void UpdateQuantityOfItemNotInCacheReturnDetailsException()
+        {
+            try
+            {
+                controller.UpdateQuantity("jerky", 5);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("jerky not in Cart so quantity cannot be updated.", e.Message);
+                throw;
+            }
+
+            Assert.Fail();
         }
     }
 }
